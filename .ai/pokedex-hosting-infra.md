@@ -1,6 +1,6 @@
 # Pokedex Hosting & Server-Side Infrastructure (No CI/CD)
 
-This document defines the production/development hosting approach and server-side services for the Pokedex app, excluding CI/CD.
+This document defines the staging/production hosting approach and server-side services for the Pokedex app, excluding CI/CD.
 
 ## Overview
 
@@ -14,7 +14,7 @@ This document defines the production/development hosting approach and server-sid
 
 ## Environments
 
-- `dev`, `staging`, `prod`
+- `staging`, `prod`
 - Separate Amplify environments per stage
 - Separate Cognito User Pools per stage (or separate app clients minimally)
 - One DynamoDB table per stage (namespaced)
@@ -22,7 +22,7 @@ This document defines the production/development hosting approach and server-sid
 ## Networking & Security
 
 - HTTPS via Amplify-managed certs
-- Custom domains per stage (e.g., `dev.pokedex.example.com`, `pokedex.example.com`)
+- Custom domains per stage (e.g., `staging.pokedex.example.com`, `pokedex.example.com`)
 - WAF (optional) in front of CloudFront for basic rate-limiting/bot control
 - CORS: no public API exposed; SSR handles data server-side
 

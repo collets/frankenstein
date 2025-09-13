@@ -38,15 +38,15 @@ What CDK does not manage
 
 ## Environments
 
-- `dev`, `staging`, `prod`
+- `staging`, `prod`
 - CDK context or env files provide table names, domain prefixes, callback URLs per stage
 
 ## Nx Targets
 
 - `pnpm nx run infra-pokedex:build` — typecheck/compile CDK
 - `pnpm nx run infra-pokedex:diff -- --profile <aws>` — cdk diff
-- `pnpm nx run infra-pokedex:deploy -- --profile <aws> -c stage=dev` — cdk deploy
-- `pnpm nx run infra-pokedex:destroy -- --profile <aws> -c stage=dev` — cdk destroy (careful)
+- `pnpm nx run infra-pokedex:deploy -- --profile <aws> -c stage=staging` — cdk deploy
+- `pnpm nx run infra-pokedex:destroy -- --profile <aws> -c stage=staging` — cdk destroy (careful)
 
 We’ll wire these as project targets in `project.json` for `infra/pokedex`.
 
@@ -54,7 +54,7 @@ We’ll wire these as project targets in `project.json` for `infra/pokedex`.
 
 - Keep no secrets in code.
 - App runtime env vars managed in Amplify environments (resolved from SSM/Secrets at deploy-time or manually set per env).
-- Mapping per environment (`dev`, `staging`, `prod`):
+- Mapping per environment (`staging`, `prod`):
 
 Secrets Manager (rotation-worthy or high-sensitivity)
 - `/pokedex/{stage}/SESSION_SECRET` — cookie encryption/signing secret

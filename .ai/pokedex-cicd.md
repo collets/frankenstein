@@ -4,9 +4,8 @@ This plan describes automation from pull request to production using GitHub Acti
 
 ## Branching
 
-- `main`: production
-- `develop` (optional): staging
-- Feature branches: PR to `develop` or `main`
+- `main`: trunk (deploys to staging)
+- Feature branches: PR to `main`
 
 ## Pipelines
 
@@ -19,9 +18,9 @@ This plan describes automation from pull request to production using GitHub Acti
   - `pnpm nx affected --target=lint,typecheck,test,build` (no deploy)
   - Upload build artifacts (optional)
 
-### Deploy staging (optional)
+### Deploy staging
 
-- Trigger: push to `develop`
+- Trigger: push to `main`
 - Jobs:
   - Same steps as PR, then:
   - Deploy app to Amplify `staging` environment
@@ -117,16 +116,16 @@ jobs:
             --yes
 ```
 
-## GitHub Actions skeleton
+## GitHub Actions skeleton (staging on main)
 
 ```yaml
 name: ci
 
 on:
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -154,7 +153,7 @@ jobs:
       - run: pnpm nx affected --target=build --parallel
 
   deploy:
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -172,7 +171,7 @@ jobs:
       - name: Deploy to Amplify
         env:
           AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
-          AMPLIFY_BRANCH: ${{ github.ref == 'refs/heads/main' && 'prod' || 'staging' }}
+          AMPLIFY_BRANCH: staging
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
