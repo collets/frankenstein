@@ -33,7 +33,9 @@ This document outlines authentication via AWS Cognito (Hosted UI + OIDC), SSR se
 
 ## Cookie details
 
-- HTTP-only, Secure, SameSite=Lax (Strict on non-OIDC flows), Path=/
+- HTTP-only, Secure, Path=/
+- Session cookie during normal app usage: SameSite=Lax (or Strict where safe)
+- During OIDC redirects/callbacks, temporary state cookies use SameSite=None; Secure to allow the IdP cross-site redirect to function
 - Contents: minimal identity + CSRF token reference
 - Rotation: refresh session on each auth callback; short maxAge with sliding expiration
 - Encryption/signing: server secret; key rotation via env vars

@@ -98,6 +98,13 @@ This describes the data model and access patterns for user-centric features: squ
 - Box queries use SK prefix; preview uses GSI1 for time-ordered reads
 - Max squad size (6) keeps reorders cheap and simple
 
+## Consistency considerations
+
+- Default eventually consistent reads are acceptable for most flows
+- After a write that must reflect immediately (e.g., add to squad), either:
+  - Read the specific keys just written (same partition) to achieve read-your-writes semantics
+  - Or optimistically update UI from the action response and reconcile later
+
 ## Validation
 
 - All write paths validated with `zod` in `libs/models`

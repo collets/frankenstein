@@ -54,6 +54,7 @@ Notes
   - Context menu: add to squad (if caught), view details, catch
 - Components
   - PokedexGrid, PokemonCard (supports silhouette state), SearchBar, FilterDialog, ContextMenu, LoadMore
+  - Image fallback strategy: prefer dream-world; if missing, fall back to official-artwork; finally use neutral silhouette placeholder
 
 ### Pokemon details (`/pokemon/:id`)
 - Purpose: Rich detail view with tabs
@@ -92,6 +93,7 @@ Notes
   - Search & filters (shared with Pokedex)
 - Components
   - BoxGrid, PokemonCard, LoadMore, ContextMenu, SearchBar, FilterDialog
+  - Image fallback strategy: same as Pokedex
 
 ### Generations (`/generations`)
 - Purpose: Explore generations and filter pokedex/box
@@ -195,7 +197,7 @@ Represented as field lists (not code). Each loader returns a JSON object with th
 
 - Keyboard navigation for grids and menus
 - Focus-visible styles; ARIA labels for actions
-- Sufficient color contrast for type colors; respect prefers-reduced-motion
+- Sufficient color contrast for type colors (target WCAG AA); verify text/labels over type gradients meet contrast; respect prefers-reduced-motion
 
 ## Performance
 

@@ -41,6 +41,14 @@ What CDK does not manage
 - `staging`, `prod`
 - CDK context or env files provide table names, domain prefixes, callback URLs per stage
 
+Domain patterns
+- staging: `staging.<root-domain>` (e.g., `staging.pokedex.example.com`)
+- prod: `<root-domain>` (e.g., `pokedex.example.com`)
+
+Cognito callback URLs (examples)
+- staging: `https://staging.pokedex.example.com/auth/callback`
+- prod: `https://pokedex.example.com/auth/callback`
+
 ## Nx Targets
 
 - `pnpm nx run infra-pokedex:build` — typecheck/compile CDK

@@ -49,3 +49,26 @@
 
 - Use Node.js v22.19.0 as specified in `.nvmrc`
 - Run `nvm use` to switch to the correct Node.js version
+
+## Problem solving approach
+
+- You always start by understanding the problem
+- You then break down the problem into smaller sub-problems, as much as possible
+- You then review your plan and sub-problems, and double check that you have not missed any step given the broader context
+- You then solve each sub-problem one by one
+- You then combine the solutions of the sub-problems to solve the original problem
+- You then test the solution
+- You then refactor the code if needed
+- You then repeat the process for the next problem
+
+## Development guidelines
+
+- You follow the DDD (Domain Driven Design) principles
+- You follow the SOLID principles
+- You follow the KISS principle
+- You follow the DRY principle
+- You try to keep the codebase as simple as possible
+- You add comments that are useful for the future developer
+- When possible, you prefer to use TDD (Test Driven Development), if not, you always write tests for the code you write after
+- You prefer to use the simplest solution to the problem, unless it's not the best solution
+- when scaffholding libraries or frameworks, use the official scripts and generators in the terminal, unless is simpler to create the files manually

@@ -19,6 +19,14 @@ This document defines the staging/production hosting approach and server-side se
 - Separate Cognito User Pools per stage (or separate app clients minimally)
 - One DynamoDB table per stage (namespaced)
 
+Domains
+- staging: `staging.<root-domain>` (e.g., `staging.pokedex.example.com`)
+- prod: `<root-domain>` (e.g., `pokedex.example.com`)
+
+Cognito callback URLs
+- staging: `https://staging.pokedex.example.com/auth/callback`
+- prod: `https://pokedex.example.com/auth/callback`
+
 ## Networking & Security
 
 - HTTPS via Amplify-managed certs
@@ -70,6 +78,15 @@ React Router framework apps deploy to any Node SSR host. Amplify provides a mana
 - Metrics: error rates, latency percentiles
 - Structured logging with correlation id
 - Optional Sentry for FE/BE error tracking (dsn via env)
+
+## Security headers (SSR)
+
+- Set via SSR response headers where applicable:
+  - Content-Security-Policy: restrict scripts/styles, allow images from PokeAPI/CDN; adjust during implementation
+  - Referrer-Policy: no-referrer-when-downgrade (or stricter)
+  - Permissions-Policy: disable unused APIs (geolocation, camera, etc.)
+  - X-Frame-Options: DENY
+  - X-Content-Type-Options: nosniff
 
 ## Local development
 

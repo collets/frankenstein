@@ -129,10 +129,10 @@ We will define generators/conventions as we proceed.
 
 ## CI/CD
 
-- GitHub Actions pipeline
-  - Setup Node 22; pnpm; Nx cache (remote optional)
-  - Lint, typecheck, build
-  - Deploy to Amplify on main
+- GitHub Actions (trunk-based)
+  - PRs: lint, typecheck, test, build (no deploy)
+  - main push: deploy to Amplify staging and run smoke tests
+  - Manual release job: run Nx Release (conventional commits), tag, deploy to Amplify prod
 
 ## Next validation step
 

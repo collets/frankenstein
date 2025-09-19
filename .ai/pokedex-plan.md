@@ -61,6 +61,7 @@
 - Implement `getPokemon`, `getSpecies`, `listSpeciesPage`, `getEvolutionChain` using `fetch + zod`
 - Add small in‑memory LRU cache and retries with backoff
 - Unit tests with mocked fetch + fixtures
+ - MSW (Mock Service Worker) setup for local/e2e to simulate PokeAPI
 
 ### 5) DynamoDB repositories (server‑only)
 
@@ -108,6 +109,7 @@
 - Structured logger; correlation id per request
 - Map data‑access errors to friendly UI states
 - Add basic health endpoint and smoke tests
+ - MSW-backed e2e tests for key user flows (pokedex browse, details, catch)
 
 ### 12) IaC (CDK minimal)
 

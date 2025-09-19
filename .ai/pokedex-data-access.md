@@ -38,6 +38,7 @@ This document defines conventions for server-side data-access to PokeAPI and Dyn
   - Keyed by full URL + query; value includes parsed data and `staleAt`
   - TTL defaults: 60–300s depending on endpoint; obey `Cache-Control` when present
   - Optional CDN caching via HTTP headers set in loader responses where appropriate
+  - Image URL strategy: prefer dream-world; if missing or error, fall back to official-artwork; final fallback is a neutral silhouette asset
 
 - DynamoDB
   - No generic cache initially; reads are cheap and per-user
@@ -80,9 +81,9 @@ This document defines conventions for server-side data-access to PokeAPI and Dyn
 
 ## Rate limiting and retries
 
-- Use exponential backoff for PokeAPI (e.g., 3 attempts)
+- Use exponential backoff for PokeAPI (cap at 3 attempts) with jitter
 - Respect `Retry-After` if provided
-- Consider simple token-bucket to protect our quota (later)
+- Implement a simple per-process token-bucket to smooth bursts (e.g., 5 req/sec average, short burst allowance)
 
 ## Security
 
@@ -100,4 +101,4 @@ This document defines conventions for server-side data-access to PokeAPI and Dyn
 
 - Unit test data-access functions with mock fetch/DynamoDB client
 - Contract tests per schema to prevent drift
-- E2E routes test with mocked PokeAPI fixture responses
+- E2E routes test with MSW to mock PokeAPI and deterministic fixtures

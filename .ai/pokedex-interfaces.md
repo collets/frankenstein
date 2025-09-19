@@ -17,7 +17,7 @@ export interface StatValue { name: string; value: number; }
 
 export interface PokemonSummary {
   speciesId: number;
-  number: number;
+  number: number; // National dex number aligned with speciesId unless a specific mapping is required
   name: string;
   types: PokemonType[];
   artworkUrl: string;
@@ -198,4 +198,5 @@ export interface DataAccessError extends Error {
 
 - Function names map 1:1 to loader/action needs in `.ai/pokedex-frontend.md`
 - Concrete implementations will live under `libs/data-access/*` with server-only boundaries
+- Forms/variants: keep speciesId stable for base species; treat forms as display details unless a later requirement demands separate entities.
 - We can generate stubs from these interfaces when we start coding
