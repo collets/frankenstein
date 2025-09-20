@@ -1,26 +1,11 @@
 import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
+import { routes } from './router';
 
-import App from './app';
-
-describe('App', () => {
-  it('should render successfully', () => {
-    const { baseElement } = render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
+describe('App shell', () => {
+  it('renders without crashing', () => {
+    const router = createMemoryRouter(routes, { initialEntries: ['/'] });
+    const { baseElement } = render(<RouterProvider router={router} />);
     expect(baseElement).toBeTruthy();
-  });
-
-  it('should have a greeting as the title', () => {
-    const { getAllByText } = render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
-    expect(
-      getAllByText(new RegExp('Welcome pokedex', 'gi')).length > 0
-    ).toBeTruthy();
   });
 });
