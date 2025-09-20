@@ -1,10 +1,11 @@
 import { Stack, StackProps, CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { AttributeType, BillingMode, Table, ProjectionType } from 'aws-cdk-lib/aws-dynamodb';
+import { AttributeType, BillingMode, Table, ProjectionType, CfnTable } from 'aws-cdk-lib/aws-dynamodb';
 import { StringParameter } from 'aws-cdk-lib/aws-ssm';
+import type { StageName } from '../config/stages';
 
 export interface PokedexDynamoStackProps extends StackProps {
-  readonly stage: 'staging' | 'prod';
+  readonly stage: StageName;
   readonly parameterPrefix: string;
   readonly tableNameParameterPath: string;
   readonly awsRegionParameterPath: string;
@@ -23,8 +24,11 @@ export class PokedexDynamoStack extends Stack {
       billingMode: BillingMode.PAY_PER_REQUEST,
       timeToLiveAttribute: 'ttl',
       removalPolicy: RemovalPolicy.RETAIN,
-      pointInTimeRecovery: true,
     });
+
+    // Enable PITR using the non-deprecated L1 property
+    const cfnTable = this.table.node.defaultChild as CfnTable;
+    cfnTable.pointInTimeRecoverySpecification = { pointInTimeRecoveryEnabled: true };
 
     this.table.addGlobalSecondaryIndex({
       indexName: 'GSI1',
