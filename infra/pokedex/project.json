@@ -16,28 +16,32 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run synth"
+        "command": "pnpm run synth",
+        "forwardAllArgs": true
       }
     },
     "diff": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run diff -- ${args.stage ? `-c stage=${args.stage}` : ''}"
+        "command": "pnpm run diff",
+        "forwardAllArgs": true
       }
     },
     "deploy": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run deploy -- ${args.stage ? `-c stage=${args.stage}` : ''} --require-approval never"
+        "command": "pnpm run deploy",
+        "forwardAllArgs": true
       }
     },
     "destroy": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run destroy -- ${args.stage ? `-c stage=${args.stage}` : ''} --force"
+        "command": "pnpm run destroy",
+        "forwardAllArgs": true
       }
     }
   }
