@@ -1,14 +1,63 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+	/* Accent (indigo default); can be overridden via --accent variable */
+	--color-accent: var(--accent, #6366f1);
+
+	/* Pokemon type palette */
+	--color-type-normal: #a8a77a;
+	--color-type-fire: #ee8130;
+	--color-type-water: #6390f0;
+	--color-type-electric: #f7d02c;
+	--color-type-grass: #7ac74c;
+	--color-type-ice: #96d9d6;
+	--color-type-fighting: #c22e28;
+	--color-type-poison: #a33ea1;
+	--color-type-ground: #e2bf65;
+	--color-type-flying: #a98ff3;
+	--color-type-psychic: #f95587;
+	--color-type-bug: #a6b91a;
+	--color-type-rock: #b6a136;
+	--color-type-ghost: #735797;
+	--color-type-dragon: #6f35fc;
+	--color-type-dark: #705746;
+	--color-type-steel: #b7b7ce;
+	--color-type-fairy: #d685ad;
+
+	/* Radii */
+	--radius-sm: 0.25rem;
+	--radius-md: 0.5rem;
+	--radius-lg: 0.75rem;
+}
+
+/* Base styles */
 
 :root {
-  --accent: indigo;
+	color-scheme: light dark;
 }
 
-html, body, #root {
-  height: 100%;
+html,
+body,
+#root {
+	height: 100%;
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+/* Focus styles */
+:where(button, a, input, [role="button"]) {
+	@apply outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900 rounded-[--radius-sm];
+}
+
+/* Utility helpers */
+.card {
+	@apply rounded-[--radius-lg] shadow-sm border border-black/5 dark:border-white/10 bg-white dark:bg-neutral-900;
+}
+.badge {
+	@apply inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium text-white shadow-sm;
+}
+.bottom-nav {
+	@apply fixed bottom-0 inset-x-0 z-40 border-t border-black/5 dark:border-white/10 bg-white/90 dark:bg-neutral-900/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-neutral-900/60;
+}
+.sidebar-nav {
+	@apply h-full w-64 border-r border-black/5 dark:border-white/10 bg-white/80 dark:bg-neutral-900/80 backdrop-blur;
 }
