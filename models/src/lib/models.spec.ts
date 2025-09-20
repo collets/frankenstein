@@ -1,10 +1,5 @@
 import { z } from 'zod';
-import {
-  PokemonSummarySchema,
-  PokemonDetailsSchema,
-  SpeciesMetaSchema,
-  EvolutionChainSchema,
-} from './models';
+import { PokemonSummarySchema, PokemonDetailsSchema, SpeciesMetaSchema, EvolutionChainSchema } from './schemas';
 
 describe('models schemas', () => {
   it('parses PokemonSummary', () => {
