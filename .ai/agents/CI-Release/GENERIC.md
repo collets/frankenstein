@@ -12,3 +12,14 @@ Constraints
 Definition of Done
 - CI green on PRs; staging auto-deploy works
 - Manual release workflow dispatch deploys tagged commit to prod
+
+## Context requirements
+
+- Main requirements: `.ai/` (read: `pokedex-cicd.md`, `pokedex-plan.md`)
+- This agent spec: `.ai/agents/CI-Release/PROJECT.md`
+- Workspace rules: `AGENTS.md`
+- Role-specific requirements: `.ai/pokedex-cicd.md` (workflows, release)
+
+## Start-of-task routine
+- Update branch: `git checkout agent/ci-release/pipelines && git fetch origin && git rebase origin/main`
+- Re-read Context requirements (above) and `PROJECT.md`

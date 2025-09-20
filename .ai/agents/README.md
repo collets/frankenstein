@@ -15,6 +15,10 @@ Enable parallel implementation using Cursor background agents with minimal confl
 - CI enforces lint, typecheck, tests, and no cross-boundary imports
 - Merge order defined in workflow section below
 
+Start-of-task routine (every session)
+- `git checkout <agent-branch>` → `git fetch origin` → `git rebase origin/main` (or merge)
+- Re-read your GENERIC.md Context requirements and your PROJECT.md
+
 ## Agents & responsibilities (high-level)
 - FE-Framework: SSR app shell, routes, loaders/actions wiring, error boundaries
 - UI-DesignSystem: Tailwind/shadcn, tokens, components, accessibility

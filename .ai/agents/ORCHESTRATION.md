@@ -42,6 +42,13 @@ Deployment notes
 - Agents append daily updates to `.ai/agents/DIARY.md`
 - Mention branch, change summary, blockers
 
+## Start-of-task routine (every session)
+- Update branch from main to get latest context:
+  - `git checkout <agent-branch>`
+  - `git fetch origin` && `git rebase origin/main` (or merge if preferred)
+- Re-read Context requirements in your GENERIC.md and PROJECT.md
+- Then begin work; keep PRs atomic
+
 ## Merging to main
 - Only after green checks and review
 - Staging auto-deploy verifies artifact; then manual release can promote
