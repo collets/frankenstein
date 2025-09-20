@@ -10,7 +10,7 @@ export interface SquadData {
   latestCaught: BoxEntry[];
 }
 
-export async function loader(): Promise<SquadData> {
+export async function loader(_args: LoaderFunctionArgs): Promise<SquadData> {
   return {
     session: { userId: null, isGuest: true },
     squad: [],

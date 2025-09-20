@@ -7,7 +7,7 @@ export interface UserData {
   profile?: { displayName?: string; email?: string };
 }
 
-export async function loader(): Promise<UserData> {
+export async function loader(_args: LoaderFunctionArgs): Promise<UserData> {
   return { session: { userId: null, isGuest: true } };
 }
 
