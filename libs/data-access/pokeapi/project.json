@@ -1,0 +1,19 @@
+{
+  "name": "pokeapi",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/data-access/pokeapi/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/data-access/pokeapi",
+        "main": "libs/data-access/pokeapi/src/index.ts",
+        "tsConfig": "libs/data-access/pokeapi/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}
