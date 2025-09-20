@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/aws/aws-cdk/master/packages/@aws-cdk/cdk/lib/api/cdk.schema.json",
+  "app": "tsx bin/pokedex.ts",
+  "context": {
+    "@aws-cdk/core:stackRelativeExports": true,
+    "stage": "staging"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "infra-pokedex",
+  "projectType": "application",
+  "root": "infra/pokedex",
+  "sourceRoot": "infra/pokedex",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm run typecheck"
+      }
+    },
+    "synth": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm exec cdk synth",
+        "forwardAllArgs": true
+      }
+    },
+    "diff": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm exec cdk diff",
+        "forwardAllArgs": true
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm exec cdk deploy --require-approval never",
+        "forwardAllArgs": true
+      }
+    },
+    "destroy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm exec cdk destroy --force",
+        "forwardAllArgs": true
+      }
+    }
+  }
+}

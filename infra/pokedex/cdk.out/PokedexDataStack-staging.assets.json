@@ -1,0 +1,21 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "10e5cab75b320c15af23ab138f582c69119ca9fad7ffabd128a016a0cbcd6167": {
+      "displayName": "PokedexDataStack-staging Template",
+      "source": {
+        "path": "PokedexDataStack-staging.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-us-east-1-3bb61467": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-us-east-1",
+          "objectKey": "10e5cab75b320c15af23ab138f582c69119ca9fad7ffabd128a016a0cbcd6167.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

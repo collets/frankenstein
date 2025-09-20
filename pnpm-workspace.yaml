@@ -1,2 +1,4 @@
 autoInstallPeers: true
 strictPeerDependencies: false
+packages:
+  - "infra/**"

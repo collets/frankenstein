@@ -51,10 +51,11 @@ Cognito callback URLs (examples)
 
 ## Nx Targets
 
-- `pnpm nx run infra-pokedex:build` — typecheck/compile CDK
-- `pnpm nx run infra-pokedex:diff -- --profile <aws>` — cdk diff
-- `pnpm nx run infra-pokedex:deploy -- --profile <aws> -c stage=staging` — cdk deploy
-- `pnpm nx run infra-pokedex:destroy -- --profile <aws> -c stage=staging` — cdk destroy (careful)
+- `pnpm nx run infra-pokedex:typecheck` — Type-check the CDK app
+- `pnpm nx run infra-pokedex:synth` — `cdk synth` with context
+- `pnpm nx run infra-pokedex:diff -- --profile <aws> -c stage=<stage>` — cdk diff
+- `pnpm nx run infra-pokedex:deploy -- --profile <aws> -c stage=<stage> --require-approval never` — cdk deploy
+- `pnpm nx run infra-pokedex:destroy -- --profile <aws> -c stage=<stage> --force` — cdk destroy (careful)
 
 We’ll wire these as project targets in `project.json` for `infra/pokedex`.
 
