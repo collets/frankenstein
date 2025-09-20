@@ -191,13 +191,19 @@ export async function listSpeciesPage(args: ListSpeciesArgs = {}): Promise<z.inf
   const parsed = schema.parse(raw);
   const entries = parsed.results.map((r) => {
     const match = r.url.match(/\/pokemon\/(\d+)\/?$/);
-    const id = match ? Number(match[1]) : undefined;
+    if (!match) {
+      throw Object.assign(new Error(`ValidationError: unable to extract speciesId from url: ${r.url}`), {
+        code: 'ValidationError',
+        status: 502,
+      });
+    }
+    const id = Number(match[1]);
     return SpeciesPageEntrySchema.parse({
-      speciesId: id || 0,
-      number: id || 0,
+      speciesId: id,
+      number: id,
       name: r.name,
       types: [],
-      artworkUrl: imageUrlForSpecies(id || 0),
+      artworkUrl: imageUrlForSpecies(id),
     });
   });
   const value = SpeciesPageSchema.parse({ entries, page });
@@ -226,9 +232,15 @@ export async function getEvolutionChain(args: { speciesId: number }): Promise<Ev
   });
   const parsed = schema.parse(raw);
 
-  function mapNode(node: any): { speciesId: number; name: string; trigger?: string; children?: any[] } {
+  function mapNode(node: any): { speciesId: number; name: string; trigger?: string; children?: ReturnType<typeof mapNode>[] } {
     const idMatch = node.species.url.match(/\/pokemon-species\/(\d+)\/?$/);
-    const id = idMatch ? Number(idMatch[1]) : 0;
+    if (!idMatch) {
+      throw Object.assign(new Error(`ValidationError: unable to extract speciesId from url: ${node.species.url}`), {
+        code: 'ValidationError',
+        status: 502,
+      });
+    }
+    const id = Number(idMatch[1]);
     const children = (node.evolves_to || []).map(mapNode);
     const trig = node.evolution_details?.[0]?.trigger?.name;
     return { speciesId: id, name: node.species.name, trigger: trig, children };
