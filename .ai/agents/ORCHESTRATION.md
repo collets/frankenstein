@@ -22,6 +22,8 @@
 - Shared tokens and constants documented up-front
 
 ## Execution order & parallelism
+- Phase 0 (preflight):
+  - Infra-IaC — scaffold CDK (DynamoDB, Cognito), define SSM/Secrets names and outputs; no deploy required for local work
 - Phase 1 (parallel):
   - UI-DesignSystem (tokens/components)
   - FE-Framework (skeleton routes/loaders with mocks)
@@ -31,6 +33,10 @@
   - Auth-Sessions integrates with FE-Framework and Data-UserRepo
 - Phase 3:
   - CI-Release finalizes pipelines; staging deploy and manual release
+
+Deployment notes
+- Infra-IaC can deploy to staging once FE skeleton and Auth are ready for integration tests
+- Until then, teams rely on in-memory repos + MSW; no AWS dependency for local SSR
 
 ## Status & diary
 - Agents append daily updates to `.ai/agents/DIARY.md`
