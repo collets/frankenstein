@@ -61,3 +61,12 @@ playwright/.cache/
 
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+
+# AWS CDK build output (do not version)
+cdk.out/
+**/cdk.out/
+.cdk.staging/
+**/.cdk.staging/
+
+# Note: keep cdk.json under version control.
+# Consider committing cdk.context.json only if you use context lookups and want stable synths across machines.
