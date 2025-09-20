@@ -53,6 +53,11 @@ Deployment notes
 - Only after green checks and review
 - Staging auto-deploy verifies artifact; then manual release can promote
 
+## Commit, push, and PR policy
+- Agents MUST commit and push to their own branch when work is complete for the task
+- Agents MUST open a PR with an atomic scope and include a checklist and notes
+- Agents MUST append a one-line update to `.ai/agents/DIARY.md` in the PR
+
 ## Local testing
 - In-memory repos and MSW enable full offline testing
 - Route tests run under Node SSR
