@@ -16,7 +16,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run synth",
+        "command": "pnpm exec cdk synth",
         "forwardAllArgs": true
       }
     },
@@ -24,7 +24,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run diff",
+        "command": "pnpm exec cdk diff",
         "forwardAllArgs": true
       }
     },
@@ -32,7 +32,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run deploy",
+        "command": "pnpm exec cdk deploy --require-approval never",
         "forwardAllArgs": true
       }
     },
@@ -40,7 +40,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "infra/pokedex",
-        "command": "pnpm run destroy",
+        "command": "pnpm exec cdk destroy --force",
         "forwardAllArgs": true
       }
     }
