@@ -1,0 +1,21 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "57c8ff7a4340c5ed88d636ce1f6c7395785936d9a3ebdef7359d509cbbc20741": {
+      "displayName": "PokedexCognitoStack-staging Template",
+      "source": {
+        "path": "PokedexCognitoStack-staging.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-us-east-1-da0f37f2": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-us-east-1",
+          "objectKey": "57c8ff7a4340c5ed88d636ce1f6c7395785936d9a3ebdef7359d509cbbc20741.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

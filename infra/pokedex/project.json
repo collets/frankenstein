@@ -1,0 +1,44 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "infra-pokedex",
+  "projectType": "application",
+  "root": "infra/pokedex",
+  "sourceRoot": "infra/pokedex",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm run typecheck"
+      }
+    },
+    "synth": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm run synth"
+      }
+    },
+    "diff": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm run diff -- ${args.stage ? `-c stage=${args.stage}` : ''}"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm run deploy -- ${args.stage ? `-c stage=${args.stage}` : ''} --require-approval never"
+      }
+    },
+    "destroy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "infra/pokedex",
+        "command": "pnpm run destroy -- ${args.stage ? `-c stage=${args.stage}` : ''} --force"
+      }
+    }
+  }
+}

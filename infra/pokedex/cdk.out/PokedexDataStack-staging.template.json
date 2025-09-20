@@ -1,0 +1,156 @@
+{
+ "Description": "Pokedex DynamoDB table and indexes",
+ "Resources": {
+  "PokedexTableF7E67C04": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "PK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "SK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "GSI1PK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "GSI1SK",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "GSI1",
+      "KeySchema": [
+       {
+        "AttributeName": "GSI1PK",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "GSI1SK",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "PK",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "SK",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "pokedex-staging",
+    "TimeToLiveSpecification": {
+     "AttributeName": "ttl",
+     "Enabled": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "PokedexDataStack-staging/PokedexTable/Resource"
+   }
+  },
+  "ParamDynamoTableName69DAA189": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/pokedex/staging/DYNAMO_TABLE_NAME",
+    "Type": "String",
+    "Value": "TO_BE_SET"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PokedexDataStack-staging/ParamDynamoTableName/Resource"
+   }
+  },
+  "ParamAwsRegionCD525E0E": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/pokedex/staging/AWS_REGION",
+    "Type": "String",
+    "Value": "TO_BE_SET"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PokedexDataStack-staging/ParamAwsRegion/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/z2LUQ7CIBBEz9J/urYkegEPoKn+mwVWQ1ugYcHGEO5uWhO/Zl7mjQTZH6FrcOVWm6mdrYJyS6gngSs/ivl4dMEoKHdUM4nz0++lCma3mdH61xUjOkoUt/kPtYqBOOSo99slpyWnKnwwBCMf3lJCf4KuGdnaNmafrCMYfvkFetaf/JcAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "PokedexDataStack-staging/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "TableName": {
+   "Value": {
+    "Ref": "PokedexTableF7E67C04"
+   },
+   "Export": {
+    "Name": "PokedexDataStack-staging:TableName"
+   }
+  },
+  "TableArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "PokedexTableF7E67C04",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "PokedexDataStack-staging:TableArn"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

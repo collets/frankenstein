@@ -37,6 +37,9 @@
       }
     }
   ],
+  "projects": {
+    "infra-pokedex": "infra/pokedex"
+  },
   "generators": {
     "@nx/react": {
       "application": {
