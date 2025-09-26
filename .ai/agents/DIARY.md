@@ -1,3 +1,5 @@
+2025-09-20: UI-DesignSystem initialized Tailwind tokens, created models/ui libs, and built core components (TypeBadge, Card, Bottom/Sidebar Nav, Tabs) with tests.
+
 # Agents Master Diary
 
 Append short daily updates:

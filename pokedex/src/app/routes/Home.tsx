@@ -1,7 +1,9 @@
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+import { PokemonTypeBadge } from '@scdevelop/ui';
+import type { PokemonType } from '@scdevelop/models';
 
 export interface SessionInfo { userId: string | null; isGuest: boolean }
-export interface PokemonSummary { speciesId: number; number: number; name: string; types: string[]; artworkUrl: string }
+export interface PokemonSummary { speciesId: number; number: number; name: string; types: PokemonType[]; artworkUrl: string }
 export interface SquadSlot extends PokemonSummary { slot: 1|2|3|4|5|6 }
 
 export interface HomeData {
@@ -36,7 +38,11 @@ export default function Home() {
         <img src={data.hero.artworkUrl} alt={data.hero.name} width={96} height={96} />
         <div>
           <div style={{ fontSize: 20, fontWeight: 600 }}>{data.hero.name}</div>
-          <div>Types: {data.hero.types.join(', ')}</div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {data.hero.types.map((t) => (
+              <PokemonTypeBadge key={t} type={t} label={t} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
