@@ -19,7 +19,8 @@
         "libs/data-access/pokeapi/src/index.ts"
       ],
       "@scdevelop/models": ["models/src/index.ts"],
-      "@scdevelop/ui": ["ui/src/index.ts"]
+      "@scdevelop/ui": ["ui/src/index.ts"],
+      "@scdevelop/auth-session": ["libs/auth-session/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
