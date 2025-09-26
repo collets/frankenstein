@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@scdevelop/data-access/pokeapi": [
+        "libs/data-access/pokeapi/src/index.ts"
+      ],
       "@scdevelop/models": ["models/src/index.ts"],
       "@scdevelop/ui": ["ui/src/index.ts"]
     }
