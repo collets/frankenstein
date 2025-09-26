@@ -73,6 +73,7 @@ export const SpeciesPageEntrySchema = PokemonSummarySchema.pick({
   number: true,
   name: true,
   types: true,
+  artworkUrl: true,
 });
 
 export const SpeciesPageSchema = z.object({
