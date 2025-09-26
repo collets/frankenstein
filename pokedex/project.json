@@ -5,5 +5,40 @@
   "projectType": "application",
   "tags": [],
   "// targets": "to see all targets run: nx show project pokedex --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "options": {
+        "configFile": "pokedex/vite.config.ts"
+      },
+      "outputs": ["{workspaceRoot}/dist/pokedex"]
+    },
+    "dev": {
+      "executor": "@nx/vite:dev",
+      "options": {
+        "configFile": "pokedex/vite.config.ts"
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview",
+      "options": {
+        "configFile": "pokedex/vite.config.ts"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "coverage/pokedex",
+        "configFile": "pokedex/vite.config.ts"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "pokedex",
+        "command": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.spec.json"
+      }
+    }
+  }
 }

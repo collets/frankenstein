@@ -1,4 +1,4 @@
-// Core domain types
+// Shared domain models for the Pokedex app
 export type PokemonType =
   | 'normal'
   | 'fire'

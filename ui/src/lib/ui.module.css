@@ -1,0 +1,7 @@
+.type-badge {
+	@apply badge;
+}
+
+.card {
+	@apply card p-4;
+}

@@ -1,6 +1,7 @@
 // Uncomment this line to use CSS modules
 // import styles from './app.module.css';
 import NxWelcome from './nx-welcome';
+import { PokemonCardSkeleton, PokemonTypeBadge, BottomNav } from '@scdevelop/ui';
 
 import { Route, Routes, Link } from 'react-router-dom';
 
@@ -32,6 +33,14 @@ export function App() {
             <div>
               This is the generated root route.{' '}
               <Link to="/page-2">Click here for page 2.</Link>
+              <div className="mt-6 space-y-4">
+                <div className="space-x-2">
+                  <PokemonTypeBadge type="grass" label="Grass" />
+                  <PokemonTypeBadge type="fire" label="Fire" />
+                  <PokemonTypeBadge type="water" label="Water" />
+                </div>
+                <PokemonCardSkeleton primaryType="electric" />
+              </div>
             </div>
           }
         />
@@ -45,6 +54,15 @@ export function App() {
         />
       </Routes>
       {/* END: routes */}
+      <BottomNav
+        items={[
+          { key: 'home', label: 'Home', href: '/', isActive: true },
+          { key: 'pokedex', label: 'Pokedex', href: '/pokedex' },
+          { key: 'squad', label: 'Squad', href: '/squad' },
+          { key: 'gens', label: 'Generations', href: '/generations' },
+          { key: 'user', label: 'User', href: '/user' },
+        ]}
+      />
     </div>
   );
 }
