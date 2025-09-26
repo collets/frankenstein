@@ -9,7 +9,8 @@
     "build": {
       "executor": "@nx/vite:build",
       "options": {
-        "configFile": "pokedex/vite.config.ts"
+        "configFile": "pokedex/vite.config.ts",
+        "outputPath": "dist/pokedex"
       },
       "outputs": ["{workspaceRoot}/dist/pokedex"]
     },
