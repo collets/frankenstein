@@ -1,5 +1,8 @@
 import { type PokemonType, type PokemonSummary } from '@scdevelop/models';
 import { Root as TabsRoot, List as TabsListPrimitive, Trigger as TabsTriggerPrimitive, Content as TabsContentPrimitive } from '@radix-ui/react-tabs';
+import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as Checkbox from '@radix-ui/react-checkbox';
 
 const typeToCssVar: Record<PokemonType, string> = {
   normal: 'var(--color-type-normal)',
@@ -64,38 +67,37 @@ export function PokemonCardSkeleton(props: { primaryType?: PokemonType; classNam
   );
 }
 
-export function PokemonCard(props: { pokemon: PokemonSummary; className?: string }) {
-  const { pokemon, className } = props;
+export function PokemonCard(props: { pokemon: PokemonSummary; className?: string; onContextMenu?: (e: React.MouseEvent) => void }) {
+  const { pokemon, className, onContextMenu } = props;
   const primaryType = pokemon.types[0];
-  const gradientStart = typeToCssVar[primaryType];
-  const gradientEnd = 'color-mix(in oklab, var(--color-accent) 40%, transparent)';
+  const typeColor = typeToCssVar[primaryType];
   return (
     <article
       className={[
-        'rounded-[--radius-lg] shadow-sm border border-black/5 dark:border-white/10 bg-white dark:bg-neutral-900 p-4',
+        'rounded-[--radius-lg] shadow-md border border-black/5 dark:border-white/10 p-3 flex flex-col h-full',
+        'transition-transform hover:scale-105 cursor-pointer',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
-      style={{ background: `linear-gradient(180deg, ${gradientStart}, ${gradientEnd})` }}
+      style={{ backgroundColor: typeColor }}
       role="article"
       aria-label={`${pokemon.name} card`}
+      onContextMenu={onContextMenu}
     >
-      <div className="flex items-start justify-between">
-        <div>
-          <h3 className="text-base font-semibold text-white drop-shadow-sm">{pokemon.name}</h3>
-          <div className="mt-1 flex gap-1">
-            {pokemon.types.map((t) => (
-              <PokemonTypeBadge key={t} type={t} label={t} />
-            ))}
-          </div>
+      <div className="flex items-start justify-between mb-2">
+        <span className="text-white/90 text-xs font-bold">#{String(pokemon.number).padStart(3, '0')}</span>
+        <div className="flex gap-1">
+          {pokemon.types.map((t) => (
+            <PokemonTypeBadge key={t} type={t} className="!px-1.5 !py-0.5 !text-[10px]" />
+          ))}
         </div>
-        <span className="text-white/80 text-sm">#{String(pokemon.number).padStart(3, '0')}</span>
       </div>
-      <div className="mt-3 aspect-square rounded-md overflow-hidden bg-white/20">
+      <div className="flex-1 flex items-center justify-center bg-white/20 rounded-md mb-2 min-h-[120px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={pokemon.artworkUrl} alt="" className="h-full w-full object-contain" loading="lazy" />
+        <img src={pokemon.artworkUrl} alt="" className="w-full h-full object-contain p-2" loading="lazy" />
       </div>
+      <h3 className="text-sm font-bold text-white drop-shadow-sm capitalize text-center truncate">{pokemon.name}</h3>
     </article>
   );
 }
@@ -234,4 +236,109 @@ export const TabsTrigger = (props: React.ComponentProps<typeof TabsTriggerPrimit
 export const TabsContent = (props: React.ComponentProps<typeof TabsContentPrimitive>) => (
   <TabsContentPrimitive {...props} className={['mt-3', props.className].filter(Boolean).join(' ')} />
 );
+
+// Context Menu (for Pokemon cards)
+export interface PokemonContextMenuItem {
+  label: string;
+  onClick: () => void;
+  icon?: React.ReactNode;
+}
+
+export function PokemonContextMenu(props: {
+  children: React.ReactNode;
+  items: PokemonContextMenuItem[];
+}) {
+  return (
+    <ContextMenu.Root>
+      <ContextMenu.Trigger asChild>{props.children}</ContextMenu.Trigger>
+      <ContextMenu.Portal>
+        <ContextMenu.Content
+          className="min-w-[180px] bg-white dark:bg-neutral-800 rounded-md shadow-lg border border-neutral-200 dark:border-neutral-700 p-1 z-50"
+        >
+          {props.items.map((item, idx) => (
+            <ContextMenu.Item
+              key={idx}
+              className="flex items-center gap-2 px-3 py-2 text-sm rounded cursor-pointer outline-none hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:bg-neutral-100 dark:focus:bg-neutral-700"
+              onClick={item.onClick}
+            >
+              {item.icon && <span className="w-4 h-4">{item.icon}</span>}
+              <span>{item.label}</span>
+            </ContextMenu.Item>
+          ))}
+        </ContextMenu.Content>
+      </ContextMenu.Portal>
+    </ContextMenu.Root>
+  );
+}
+
+// Filter Dropdown
+export interface FilterOption {
+  value: string;
+  label: string;
+  checked?: boolean;
+}
+
+export function FilterDropdown(props: {
+  label: string;
+  icon?: React.ReactNode;
+  options: FilterOption[];
+  onToggle: (value: string) => void;
+  onClear?: () => void;
+}) {
+  const hasSelection = props.options.some((opt) => opt.checked);
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <button
+          className={[
+            'inline-flex items-center gap-2 px-4 py-2 rounded-md border text-sm font-medium',
+            'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors',
+            hasSelection
+              ? 'border-[--color-accent] text-[--color-accent] bg-[--color-accent]/5'
+              : 'border-neutral-300 dark:border-neutral-700',
+          ].join(' ')}
+        >
+          {props.icon}
+          <span>{props.label}</span>
+          {hasSelection && (
+            <span className="px-1.5 py-0.5 rounded-full bg-[--color-accent] text-white text-xs">
+              {props.options.filter((o) => o.checked).length}
+            </span>
+          )}
+        </button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className="min-w-[200px] max-h-[400px] overflow-auto bg-white dark:bg-neutral-800 rounded-md shadow-lg border border-neutral-200 dark:border-neutral-700 p-1 z-50"
+        >
+          {props.options.map((option) => (
+            <DropdownMenu.CheckboxItem
+              key={option.value}
+              className="flex items-center gap-2 px-3 py-2 text-sm rounded cursor-pointer outline-none hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:bg-neutral-100 dark:focus:bg-neutral-700"
+              checked={option.checked}
+              onCheckedChange={() => props.onToggle(option.value)}
+            >
+              <div className="w-4 h-4 border border-neutral-300 dark:border-neutral-600 rounded flex items-center justify-center">
+                {option.checked && <span className="text-[--color-accent] text-xs">✓</span>}
+              </div>
+              <span>{option.label}</span>
+            </DropdownMenu.CheckboxItem>
+          ))}
+          {hasSelection && props.onClear && (
+            <>
+              <DropdownMenu.Separator className="h-px bg-neutral-200 dark:bg-neutral-700 my-1" />
+              <DropdownMenu.Item
+                className="px-3 py-2 text-sm text-red-600 dark:text-red-400 rounded cursor-pointer outline-none hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:bg-neutral-100 dark:focus:bg-neutral-700"
+                onClick={props.onClear}
+              >
+                Clear filters
+              </DropdownMenu.Item>
+            </>
+          )}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+}
 
