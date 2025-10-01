@@ -4,30 +4,31 @@ import * as ContextMenu from '@radix-ui/react-context-menu';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import * as Checkbox from '@radix-ui/react-checkbox';
 
-const typeToCssVar: Record<PokemonType, string> = {
-  normal: 'var(--color-type-normal)',
-  fire: 'var(--color-type-fire)',
-  water: 'var(--color-type-water)',
-  electric: 'var(--color-type-electric)',
-  grass: 'var(--color-type-grass)',
-  ice: 'var(--color-type-ice)',
-  fighting: 'var(--color-type-fighting)',
-  poison: 'var(--color-type-poison)',
-  ground: 'var(--color-type-ground)',
-  flying: 'var(--color-type-flying)',
-  psychic: 'var(--color-type-psychic)',
-  bug: 'var(--color-type-bug)',
-  rock: 'var(--color-type-rock)',
-  ghost: 'var(--color-type-ghost)',
-  dragon: 'var(--color-type-dragon)',
-  dark: 'var(--color-type-dark)',
-  steel: 'var(--color-type-steel)',
-  fairy: 'var(--color-type-fairy)'
+// Pokemon type colors (official palette)
+const typeToColor: Record<PokemonType, string> = {
+  normal: '#a8a77a',
+  fire: '#ee8130',
+  water: '#6390f0',
+  electric: '#f7d02c',
+  grass: '#7ac74c',
+  ice: '#96d9d6',
+  fighting: '#c22e28',
+  poison: '#a33ea1',
+  ground: '#e2bf65',
+  flying: '#a98ff3',
+  psychic: '#f95587',
+  bug: '#a6b91a',
+  rock: '#b6a136',
+  ghost: '#735797',
+  dragon: '#6f35fc',
+  dark: '#705746',
+  steel: '#b7b7ce',
+  fairy: '#d685ad'
 };
 
 export function PokemonTypeBadge(props: { type: PokemonType; className?: string; label?: string }) {
   const { type, className, label } = props;
-  const background = typeToCssVar[type];
+  const background = typeToColor[type];
   return (
     <span
       className={[
@@ -36,7 +37,7 @@ export function PokemonTypeBadge(props: { type: PokemonType; className?: string;
       ]
         .filter(Boolean)
         .join(' ')}
-      style={{ background }}
+      style={{ backgroundColor: background }}
       aria-label={label ?? `${type} type`}
     >
       {label ?? type}
@@ -45,7 +46,7 @@ export function PokemonTypeBadge(props: { type: PokemonType; className?: string;
 }
 
 export function PokemonCardSkeleton(props: { primaryType?: PokemonType; className?: string }) {
-  const bg = props.primaryType ? typeToCssVar[props.primaryType] : 'var(--color-accent)';
+  const bg = props.primaryType ? typeToColor[props.primaryType] : '#6366f1';
   return (
     <div
       className={[
@@ -54,7 +55,7 @@ export function PokemonCardSkeleton(props: { primaryType?: PokemonType; classNam
       ]
         .filter(Boolean)
         .join(' ')}
-      style={{ background: bg }}
+      style={{ backgroundColor: bg }}
       aria-busy
     >
       <div className="h-32 w-full bg-black/10 dark:bg-white/10 rounded-md animate-pulse" />
@@ -70,7 +71,7 @@ export function PokemonCardSkeleton(props: { primaryType?: PokemonType; classNam
 export function PokemonCard(props: { pokemon: PokemonSummary; className?: string; onContextMenu?: (e: React.MouseEvent) => void }) {
   const { pokemon, className, onContextMenu } = props;
   const primaryType = pokemon.types[0];
-  const typeColor = typeToCssVar[primaryType];
+  const typeColor = typeToColor[primaryType];
   return (
     <article
       className={[

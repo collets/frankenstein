@@ -127,3 +127,22 @@
 - Connect context menu actions to actual user data repositories
 - Add generation filter (needs generation data from PokeAPI)
 - Implement silhouette mode for uncaught Pokemon (needs DexRepo integration)
+
+## Bug Fix: Card Background Colors
+
+**Issue:** Cards were showing black backgrounds instead of type colors.
+
+**Cause:** CSS variables in `@theme` block weren't available for inline styles.
+
+**Solution:** 
+- Changed from `var(--color-type-*)` to direct hex color values in TypeScript
+- Updated `typeToColor` constant with official Pokemon palette
+- More performant and reliable
+
+**Note on Radix vs shadcn:**
+- Currently using Radix UI primitives directly (ContextMenu, DropdownMenu)
+- Future consideration: migrate to shadcn/ui for pre-styled components
+- shadcn provides better Tailwind integration and is industry standard
+- For now, Radix is consistent with existing Tabs implementation
+
+✅ All colors now working correctly in production build!
