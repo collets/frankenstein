@@ -34,15 +34,19 @@ export default function AppShell(props: PropsWithChildren<{}>) {
   const items = useActiveNavItems(location.pathname);
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <aside style={{ width: 240, padding: 16, borderRight: '1px solid #eee' }}>
+    <div className="flex min-h-screen">
+      {/* Desktop sidebar - hidden on mobile */}
+      <aside className="hidden md:block">
         <SidebarNav items={items} />
       </aside>
-      <main style={{ flex: 1, padding: 16 }}>
+      
+      {/* Main content area - with bottom padding on mobile for BottomNav */}
+      <main className="flex-1 p-4 md:p-6 pb-20 md:pb-6">
         {props.children}
       </main>
-      {/* Keep BottomNav rendered but hidden for now to avoid duplicate links in tests */}
-      <div hidden>
+      
+      {/* Mobile bottom navigation - hidden on desktop */}
+      <div className="md:hidden">
         <BottomNav items={items} />
       </div>
     </div>
