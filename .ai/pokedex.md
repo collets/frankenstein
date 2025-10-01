@@ -2,75 +2,7 @@
 
 I want to create a mobile-first web application that works as a pokedex.
 
-## Plan
-
-- read all the features and requirements
-- understand the requirements
-- validate the tech stack suggested by the user
-- add suggestion on the tech stack, if something is missing, or something has to be changed, this has to be done in chat, and you have to ask the user for feedback and confirmation
-- after the stack is validated create a new file in the .ai folder: pokedex-infrastructure.md
-- i want you to design all the infrastucture, but do it step by step, one component at a time, and validate with me every step before going to the next one
-- write in the file the general infrastructure: frontend, backend, database, hosting
-- not all of the parts are mandatory, please explain the pros and cons of each part, and validate with me the choice
-- after the validation, rewrite the infrastructure and keep it updated and as a reference
-  - design the frontend structure of the application
-    - create a list of the pages and the components
-    - create a list of the routes
-    - create a list of the data that will be fetched from the API
-    - create a list of the data that will be stored in the database
-  - if needed, design the layout of a library of reusable UI components (such as cards, buttons etc.)
-    - use shadcn ui components as base
-    - create a list of the components
-  - if needed, design the layout of the backend structure. If we will use React Router framework approach, it should already mixed in the frontend structure, but we can explicitate here the features
-  - if needed, design the layout of the database structure
-  - for the hosting, I was thinking to use AWS, if it´s ok, design:
-    - a different application to create all the infrastructure, using an iac approach
-    - design the infrastructure of the application, including the database, the backend, the frontend, the hosting
-  - we will use github actions for the CI/CD pipeline
-- after we have a complete infrastructure, we will move to the next steps
-
-## Requirements
-
-### Tech stack
-
-This is the preferred tech stack:
-
-- React
-- React Router
-- Tailwind CSS
-- Shadcn UI
-- TypeScript
-- a database provider
-
-### Frontend
-
-- the frontend should be a SSR or SSG application for the best performance
-- after the initial data fetch, the frontend should be a SPA application
-- the frontend should be a mobile-first application
-- the frontend should be a responsive application
-- if possible, keep all the data layer on server side, so that no api key is exposed to the client
-
-### UI
-
-- use shadcn ui components as base
-- create a library of reusable UI components (such as cards, buttons etc.)
-- keep a consistent design system
-- the colors should be based on the types of the pokemons, and choose a main color for the rest of the application
-
-### Backend
-
-- we can use the framewort feature of React Router to create a backend for the frontend
-- the major part of the data are from the pokeapi.co API
-- the additional features, like the box, squad, user should be managed by some BaaS (Backend as a Service) provider, possibly AWS, to keep it everything in one place
-
-### Data
-
-- the data will be fetched from the pokeapi.co API
-- we can use the library for the node BE: https://github.com/PokeAPI/pokedex-promise-v2 or the library for the node FE: https://github.com/PokeAPI/pokeapi-js-wrapper
-- the choice to use one or another is based on if we will use the Backend for frontend approach of React Router or not, please explain the pros and cons of each approach, and validate with me the choice
-- the data not handled by the pokeapi.co API should be stored in a database, the lightest possible solution, propose something that can be easily managed by a BaaS provider and works well with the rest of the infrastructure
-
-## Features
+## Requirements Features
 
 ### Main menu
 
