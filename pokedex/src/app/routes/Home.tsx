@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
-import { PokemonTypeBadge } from '@scdevelop/ui';
+import { PokemonCard, PokemonTypeBadge } from '@scdevelop/ui';
 import type { PokemonType } from '@scdevelop/models';
 
 export interface SessionInfo { userId: string | null; isGuest: boolean }
@@ -31,20 +31,33 @@ export async function loader(_args: LoaderFunctionArgs): Promise<HomeData> {
 export default function Home() {
   const data = useLoaderData() as HomeData;
   return (
-    <div>
-      <h1>Home</h1>
-      <p>Guest: {String(data.session.isGuest)}</p>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <img src={data.hero.artworkUrl} alt={data.hero.name} width={96} height={96} />
-        <div>
-          <div style={{ fontSize: 20, fontWeight: 600 }}>{data.hero.name}</div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            {data.hero.types.map((t) => (
-              <PokemonTypeBadge key={t} type={t} label={t} />
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold mb-2">Home</h1>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          {data.session.isGuest ? 'Playing as guest' : `Welcome, ${data.session.userId}`}
+        </p>
+      </div>
+      
+      {/* Hero Pokemon */}
+      <section>
+        <h2 className="text-xl font-semibold mb-3">Your Hero</h2>
+        <div className="max-w-sm">
+          <PokemonCard pokemon={data.hero} />
+        </div>
+      </section>
+      
+      {/* Squad Grid */}
+      {data.squad.length > 1 && (
+        <section>
+          <h2 className="text-xl font-semibold mb-3">Your Squad</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {data.squad.slice(1).map((pokemon) => (
+              <PokemonCard key={pokemon.speciesId} pokemon={pokemon} />
             ))}
           </div>
-        </div>
-      </div>
+        </section>
+      )}
     </div>
   );
 }

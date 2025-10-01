@@ -8,11 +8,14 @@ describe('RootLayout', () => {
     const router = createMemoryRouter(routes, { initialEntries: ['/pokedex'] });
     render(<RouterProvider router={router} />);
 
-    const pokedexLink = await screen.findByRole('link', { name: 'Pokedex' });
-    const homeLink = screen.getByRole('link', { name: 'Home' });
+    // Both sidebar and bottom nav render the same links, so findAllByRole
+    const pokedexLinks = await screen.findAllByRole('link', { name: 'Pokedex' });
+    const homeLinks = screen.getAllByRole('link', { name: 'Home' });
 
-    expect(pokedexLink.getAttribute('aria-current')).toBe('page');
-    expect(homeLink.getAttribute('aria-current')).toBeNull();
+    // At least one Pokedex link should be marked as active
+    expect(pokedexLinks.some(link => link.getAttribute('aria-current') === 'page')).toBe(true);
+    // All Home links should not be active
+    expect(homeLinks.every(link => link.getAttribute('aria-current') === null)).toBe(true);
   });
 });
 
