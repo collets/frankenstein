@@ -1,0 +1,28 @@
+{
+  "name": "auth-session",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/auth-session/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/auth-session",
+        "main": "libs/auth-session/src/index.ts",
+        "tsConfig": "libs/auth-session/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "passWithNoTests": false,
+        "reportsDirectory": "coverage/libs/auth-session",
+        "configFile": "libs/auth-session/vite.config.ts"
+      }
+    }
+  }
+}
+
