@@ -18,6 +18,7 @@
       "@scdevelop/data-access/pokeapi": [
         "libs/data-access/pokeapi/src/index.ts"
       ],
+      "@scdevelop/data-access/user-data": ["libs/data-access/src/index.ts"],
       "@scdevelop/models": ["models/src/index.ts"],
       "@scdevelop/ui": ["ui/src/index.ts"]
     }

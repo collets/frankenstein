@@ -1,17 +1,10 @@
-2025-09-20: UI-DesignSystem initialized Tailwind tokens, created models/ui libs, and built core components (TypeBadge, Card, Bottom/Sidebar Nav, Tabs) with tests.
+# Data-UserRepo Agent Diary
 
-# Agents Master Diary
-
-Append short daily updates:
-- Date
-- Agent
-- Branch
-- What changed
-- Risks/blockers
-- Next steps
-
-Example
-- 2025-09-19 | FE-Framework | agent/fe-framework/scaffold | Created SSR shell; added root + error boundary; no blockers; next: route stubs
- - 2025-09-20 | Infra-IaC | agent/infra/cdk-stacks | Scaffolded CDK app under infra/pokedex; added Nx targets; pending synth/typecheck; next: validate and refine stacks
- - 2025-09-20 | Data-PokeAPI | agent/data-pokeapi/fetchers | Created `models` lib with zod schemas; scaffolded `libs/data-access/pokeapi`; implemented fetchers (getPokemon, getSpecies, listSpeciesPage, getEvolutionChain) with LRU cache, retries, token-bucket; added image helpers; unit tests passing; no blockers; next: wire into loaders when FE agent is ready
- - 2025-09-20 | FE-Framework | agent/fe-framework/scaffold | Added data-router with route shells + loaders/actions, error boundary, minimal test; build/typecheck green; next: MSW scaffolding
+- Created Nx library `libs/data-access/user-data` (project: `data-access-user-data`).
+- Implemented repo interfaces per `.ai/pokedex-interfaces.md`:
+  - SquadRepo, BoxRepo, DexRepo, ProfileRepo
+- Built an in-memory adapter `InMemoryUserData` with read-your-writes semantics.
+- Implemented `InMemoryMigrationService` for guest→user merging (squad, box, dex flags).
+- Added unit tests for repos and migration; tests green via `pnpm nx test data-access-user-data`.
+- Resolved Nx project name conflicts and updated `tsconfig.base.json` paths.
+- Branch synced with `origin/main` per routine.

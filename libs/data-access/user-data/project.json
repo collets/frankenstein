@@ -1,0 +1,28 @@
+{
+  "name": "data-access-user-data",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/data-access/user-data/src",
+  "projectType": "library",
+  "tags": ["scope:data-access", "type:serveronly"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/data-access/user-data",
+        "main": "libs/data-access/user-data/src/index.ts",
+        "tsConfig": "libs/data-access/user-data/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "passWithNoTests": false,
+        "reportsDirectory": "coverage/libs/data-access/user-data",
+        "configFile": "libs/data-access/user-data/vite.config.ts"
+      }
+    }
+  }
+}
+
