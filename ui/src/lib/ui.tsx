@@ -132,6 +132,7 @@ export function BottomNav(props: { items: BottomNavItem[]; className?: string })
                   'flex flex-col items-center justify-center gap-1 py-2 text-xs',
                   item.isActive ? 'text-[--color-accent]' : 'text-neutral-500 dark:text-neutral-400',
                 ].join(' ')}
+                aria-current={item.isActive ? 'page' : undefined}
               >
                 {item.icon}
                 <span>{item.label}</span>
@@ -181,6 +182,7 @@ export function SidebarNav(props: { items: SidebarNavItem[]; className?: string 
                   'flex items-center gap-2 rounded-md px-2 py-2 text-sm',
                   item.isActive ? 'bg-[--color-accent]/10 text-[--color-accent]' : 'text-neutral-700 dark:text-neutral-300',
                 ].join(' ')}
+                aria-current={item.isActive ? 'page' : undefined}
               >
                 {item.icon}
                 <span>{item.label}</span>
