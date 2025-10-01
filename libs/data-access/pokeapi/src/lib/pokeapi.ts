@@ -12,6 +12,7 @@ import {
   type EvolutionChain,
   type ListSpeciesArgs,
 } from '@scdevelop/models';
+import { getPokemonTypes } from './pokemon-types-data';
 
 // Basic token bucket limiter
 class TokenBucket {
@@ -202,7 +203,7 @@ export async function listSpeciesPage(args: ListSpeciesArgs = {}): Promise<z.inf
       speciesId: id,
       number: id,
       name: r.name,
-      types: [],
+      types: getPokemonTypes(id),
       artworkUrl: imageUrlForSpecies(id),
     });
   });

@@ -146,3 +146,108 @@
 - For now, Radix is consistent with existing Tabs implementation
 
 ✅ All colors now working correctly in production build!
+
+# Pokemon Type Bug Fix
+
+**Date:** 2025-10-01  
+**Issue:** All Pokemon showing as "normal" type instead of correct types (fire, water, grass, etc.)
+
+**Root Cause:**
+- PokeAPI list endpoint doesn't include type information
+- Library was returning empty `types: []` array for all list entries
+- Would require individual API calls for each Pokemon (expensive)
+
+**Solution:**
+- Created `pokemon-types-data.ts` with static type mappings for Generation 1 (Pokemon #1-151)
+- Updated `listSpeciesPage()` to use `getPokemonTypes(id)` helper
+- Fallback to `['normal']` for unknown Pokemon
+
+**Results:**
+- ✅ Bulbasaur shows grass/poison
+- ✅ Charmander shows fire
+- ✅ Squirtle shows water
+- ✅ Pikachu shows electric
+- ✅ All 151 Gen 1 Pokemon have correct types
+
+# shadcn/ui Migration Complete
+
+**Date:** 2025-10-01  
+**Task:** Migrate from custom Radix UI implementations to shadcn/ui component library
+
+## Why shadcn/ui?
+- **Industry standard** for React + Tailwind projects
+- **Pre-styled components** with consistent design
+- **Copy-paste approach** - you own the code in your repo
+- **Better DX** - TypeScript, variants, composition
+- Built on Radix (same accessibility) with better defaults
+
+## Changes Made:
+
+### 1. Dependencies Added
+- `class-variance-authority@0.7.1` - for component variants
+- `clsx@2.1.1` - class name utilities
+- `tailwind-merge@3.3.1` - intelligent class merging
+
+### 2. New shadcn Components Created
+- `ui/src/lib/utils.ts` - `cn()` utility for class merging
+- `ui/src/lib/tabs.tsx` - shadcn Tabs component (replaces custom Radix)
+- `ui/src/lib/context-menu.tsx` - shadcn ContextMenu (full API)
+- `ui/src/lib/dropdown-menu.tsx` - shadcn DropdownMenu (full API)
+
+### 3. Refactored `ui.tsx`
+- Removed inline Radix imports
+- Import shadcn components instead
+- Simplified `PokemonContextMenu` using shadcn primitives
+- Simplified `FilterDropdown` using shadcn primitives
+- Cleaner, more maintainable code
+- All custom components use `cn()` for class merging
+
+### 4. Component Architecture
+**shadcn Components (reusable):**
+- Tabs, TabsList, TabsTrigger, TabsContent
+- ContextMenu + all primitives
+- DropdownMenu + all primitives
+
+**Custom Pokemon Components (domain-specific):**
+- PokemonCard - type-colored cards with hover effects
+- PokemonTypeBadge - type badges with colors
+- PokemonCardSkeleton - loading states
+- PokemonContextMenu - composed context menu for Pokemon
+- FilterDropdown - multi-select filter dropdown
+
+**Layout Components:**
+- SidebarNav - desktop navigation
+- BottomNav - mobile navigation
+
+## Benefits Achieved:
+1. ✅ **Better maintainability** - shadcn updates via copy-paste
+2. ✅ **Consistent styling** - all components follow same patterns
+3. ✅ **Better TypeScript** - proper types from shadcn
+4. ✅ **Accessibility** - Radix primitives with proper styling
+5. ✅ **Animations** - shadcn includes smooth enter/exit animations
+6. ✅ **Dark mode** - built-in support across all components
+7. ✅ **Customizable** - own the code, can modify as needed
+
+## Technical Details:
+- Components follow shadcn structure exactly
+- Use `cn()` utility for intelligent class merging
+- Proper TypeScript with forwardRef patterns
+- Export both primitives and composed components
+- No breaking changes - same API surface
+
+## Results:
+- ✅ All tests passing (7/7)
+- ✅ Build successful
+- ✅ Pokemon cards show correct type colors
+- ✅ Context menus work with proper styling
+- ✅ Filters work with animations
+- ✅ Tabs have smooth transitions
+- ✅ Zero regression - all existing functionality intact
+
+## Code Quality Improvements:
+- Cleaner imports in consuming components
+- Better separation of concerns
+- Standard shadcn patterns for future additions
+- Easy to add more shadcn components (Button, Dialog, Select, etc.)
+
+**Migration Status:** ✅ COMPLETE - Ready for production
